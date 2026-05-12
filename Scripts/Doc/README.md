@@ -12,6 +12,7 @@
 - 用户当前按顺序学习框架基础件，已创建第 1 节框架模块基类、第 2 节日志工具、第 3 节资源句柄的学习指引。
 - `01_FrameworkModuleBase` 里的文档不要命名为 `README.md`，应使用更具体的文档名。
 - 项目根目录下的 `LearningFramework.code-workspace` 是学习专用 VS Code 工作区，只展示 `_LearningWorkspace` 和原项目框架/系统相关代码。
+- 当前学习代码已经推进到 `IModule`、`ModuleBase`、`Logger`、`AssetHandle<T>` 的第一版；今天记录过的关键坑是命名空间大小写和泛型类型约束。
 
 ## 建议目录
 
