@@ -200,18 +200,7 @@ asset
 
 ---
 
-## 9. 今日踩坑记录
-
-写 `AssetHandle<T>` 和测试脚本时，注意两个容易混淆的点：
-
-- C# 的命名空间区分大小写，`Core` 和 `core` 是两个不同的命名空间。
-- 如果以后给 `AssetHandle<T>` 加上 `where T : UnityEngine.Object`，就不能再用 `AssetHandle<string>` 测试，应该换成 `GameObject`、`Sprite`、`AudioClip`、`TextAsset` 这类 Unity 资源类型。
-
-第一版如果只是为了理解泛型包装，也可以先不加类型约束。
-
----
-
-## 10. 完成标准
+## 9. 完成标准
 
 当你能自己解释下面这句话时，本节就算完成：
 
