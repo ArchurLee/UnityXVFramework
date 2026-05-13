@@ -10,10 +10,11 @@
 - 章节文件夹里的文档应当是“学习指引”，用于引导用户自己写代码，不要直接替用户完成代码。
 - `COMMON_QUESTIONS.md` 用于记录用户学习过程中问过的常见问题，不要把踩坑记录分散写进各章节 Guide。
 - 除非用户明确要求，否则不要修改 `_LearningWorkspace/Scripts/Core` 等代码文件。
-- 用户当前按顺序学习框架基础件，已创建第 1 节框架模块基类、第 2 节日志工具、第 3 节资源句柄的学习指引。
+- 用户当前已完成框架基础件前 4 节学习指引，并开始复刻第一个资源加载模块 `AssetLoader`。
 - `01_FrameworkModuleBase` 里的文档不要命名为 `README.md`，应使用更具体的文档名。
 - 项目根目录下的 `LearningFramework.code-workspace` 是学习专用 VS Code 工作区，只展示 `_LearningWorkspace` 和原项目框架/系统相关代码。
 - 当前学习代码已经推进到 `IModule`、`ModuleBase`、`Logger`、`AssetHandle<T>` 的第一版；今天记录过的关键坑是命名空间大小写和泛型类型约束。
+- `AssetLoader` 第一版保留 callback，使用 `AssetHandle<T>` 包装结果，缓存 key 使用资源类型和资源名组合。
 
 ## 建议目录
 

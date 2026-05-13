@@ -142,6 +142,10 @@
 
 ## 基础件 4：异步加载概念
 
+学习指引：
+
+- `Assets/_LearningWorkspace/Scripts/Doc/04_AsyncLoadingConcepts/Guide_AsyncLoadingConcepts.md`
+
 ### 为什么需要
 
 资源、场景、UI 面板都可能是异步加载。
@@ -171,6 +175,10 @@
 ---
 
 # 第二部分：第一个模块：资源管理器
+
+学习指引：
+
+- `Assets/_LearningWorkspace/Scripts/Doc/05_AssetLoader/Guide_AssetLoader.md`
 
 这是推荐你第一个复刻的管理器。
 

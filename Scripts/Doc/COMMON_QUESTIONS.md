@@ -60,3 +60,10 @@ C# 区分大小写。
 - 第一版只需要 `Key`、`Asset`、`IsValid`。
 - 如果加 `where T : UnityEngine.Object`，就不能用 `AssetHandle<string>` 测试。
 
+---
+
+## AssetLoader 缓存
+
+- 缓存不同类型的 `AssetHandle<T>` 时，可以先用 `Dictionary<string, object>`。
+- 缓存 key 不要只用资源名，最好组合资源类型和资源名。
+- `default` 在资源加载失败时通常表示 `null`，会让 `AssetHandle<T>.IsValid` 变成 `false`。
