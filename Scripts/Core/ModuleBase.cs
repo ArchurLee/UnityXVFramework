@@ -14,6 +14,7 @@ namespace Core
             }
 
             OnInitialize();
+            Logger.Log(ModuleName, "Initialized.");
             IsInitialized = true;
         }
 
@@ -29,6 +30,7 @@ namespace Core
             }
 
             OnShutdown();
+            Logger.Log(ModuleName, "Shutdown.");
             IsInitialized = false;
         }
 

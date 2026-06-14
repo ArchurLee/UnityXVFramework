@@ -15,13 +15,11 @@ namespace Core
 
         protected override void OnInitialize()
         {
-            Logger.Log(ModuleName, "Initialized.");
         }
 
         protected override void OnShutdown()
         {
             loadedAssets.Clear();
-            Logger.Log(ModuleName, "Shutdown and cache cleared.");
         }
 /// <summary>
 /// 异步加载预制体，支持缓存和回调
