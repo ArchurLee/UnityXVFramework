@@ -461,6 +461,10 @@
 - `Register<T>(string eventName, Action<T> callback)`
 - `Broadcast<T>(string eventName, T arg)`
 
+第二版学习指引：
+
+- `Assets/_LearningWorkspace/Scripts/Doc/07_EventManagerGeneric/Guide_EventManagerGeneric.md`
+
 ---
 
 # 第四部分：第三个模块：UI 管理器
