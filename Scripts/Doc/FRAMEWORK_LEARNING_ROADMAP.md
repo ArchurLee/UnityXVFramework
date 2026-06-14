@@ -471,6 +471,10 @@
 
 等事件管理器写完，再学 UI 管理器。
 
+学习指引：
+
+- `Assets/_LearningWorkspace/Scripts/Doc/08_UIManager/Guide_UIManager.md`
+
 原项目参考：
 
 - `Assets/Scripts/Manager/GameUIManager.cs`
