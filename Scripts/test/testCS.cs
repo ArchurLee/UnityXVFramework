@@ -5,7 +5,7 @@ public class testCS : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        var assetHandle = new AssetHandle<string>("testKey", "testAsset");
+        var assetHandle = new AssetHandle<string>("testKey", "testAsset", default);
         Logger.Log("testCS", $"Asset Key: {assetHandle.Key}, Asset Value: {assetHandle.Asset}, IsValid: {assetHandle.IsValid}");
     }
 
