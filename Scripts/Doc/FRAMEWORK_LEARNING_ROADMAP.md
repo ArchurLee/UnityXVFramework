@@ -1,4 +1,4 @@
-﻿# Unity 框架学习路线：模块驱动复刻版
+# Unity 框架学习路线：模块驱动复刻版
 
 这份路线不是 Unity 入门教程，而是用“我要写一个框架模块，需要哪些基础件？”的方式学习。
 
@@ -514,6 +514,35 @@
 UI 管理器后面可以依赖资源管理器加载 Prefab。
 
 所以 UI 管理器建议放在资源管理器之后学。
+
+---
+
+# 第四部分附加：UI Owner 与缓存池（优化设计剩余功能点）
+
+UI 管理器第一版跑通后，再做这一阶段。
+
+这一阶段不是新写模块，而是把 `AssetLoader`、`UIManager`、`BasePanel` 真正打通。
+
+学习指引：
+
+- `Assets/_LearningWorkspace/Scripts/Doc/09_UIOwnerAndCache/Guide_UIOwnerAndCache.md`
+
+原项目参考：
+
+- `Scripts/Core/UI/UIManager.cs`
+- `Scripts/Core/UI/BasePanel.cs`
+- `Scripts/Core/Assets/AssetLoader.cs`
+
+核心目标：
+
+- 让面板成为它自己资源的 owner
+- 关闭面板这一个动作，同时了结实例和它借的资源
+
+按落地顺序分三步：
+
+1. 止血：面板做成 owner，关闭走真销毁
+2. 易用性：生命周期拆分、关任意面板、带参打开、事件随显隐配对
+3. 规模：UILayer 分层、LRU 缓存池、加载中取消
 
 ---
 
