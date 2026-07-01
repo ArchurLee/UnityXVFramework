@@ -123,22 +123,22 @@ namespace Core
 
             if (panelStack.Count > 0 && panelStack.Peek() == panel)
             {
-                ShowPanelInstance(panel);
+                panel.InternalShow();
                 return panel;
             }
 
             if (panelStack.Count > 0)
             {
-                HidePanelInstance(panelStack.Peek());
+                panelStack.Peek().InternalHide(null);
             }
 
             panelStack.Push(panel);
-            ShowPanelInstance(panel);
+            panel.InternalShow();
             return panel;
         }
 
         /// <summary>
-        /// 注册UI面板到DIct中，但是可以用Addressabe平替了
+        /// 注册UI面板到Dict中，但是可以用Addressabe平替了
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="panel"></param>
@@ -158,11 +158,11 @@ namespace Core
                 {
                     if (panelStack.Count > 0)
                     {
-                        HidePanelInstance(panelStack.Peek());
+                        panelStack.Peek().InternalHide(null);
                     }
 
                     panelStack.Push(panel);
-                    ShowPanelInstance(panel);
+                    panel.InternalShow();
                 }
 
                 panelDict.Add(panelName, panel);
@@ -170,37 +170,69 @@ namespace Core
         }
 
         /// <summary>
-        /// 关闭当前栈顶UI，并自动显示下面一个UI
+        /// 关闭面板（第一步：关闭即销毁，实例和资源一起释放）
         /// </summary>
-        public void CloseTopPanel(Action closeFinishCallBack = null)
+        public void ClosePanel(BasePanel panel)
         {
-            if (panelStack.Count == 0)
+            if (panel == null)
             {
-                closeFinishCallBack?.Invoke();
+                Logger.Warning(ModuleName, "ClosePanel: panel is null");
                 return;
             }
 
-            BasePanel currentPanel = panelStack.Pop();
-            HidePanelInstance(currentPanel, () =>
-            {
-                if (panelStack.Count > 0)
-                {
-                    ShowPanelInstance(panelStack.Peek());
-                }
+            string panelName = panel.GetType().Name;
 
-                closeFinishCallBack?.Invoke();
-            });
+            // 从栈里移除
+            if (panelStack.Count > 0)
+            {
+                if (panelStack.Peek() == panel)
+                {
+                    // 是栈顶，正常出栈
+                    panelStack.Pop();
+                    
+                    // 显示下一个面板
+                    if (panelStack.Count > 0)
+                    {
+                        panelStack.Peek().InternalShow();
+                    }
+                }
+                else
+                {
+                    // 不是栈顶，从栈中移除
+                    var tempStack = new Stack<BasePanel>();
+                    while (panelStack.Count > 0)
+                    {
+                        var p = panelStack.Pop();
+                        if (p != panel)
+                        {
+                            tempStack.Push(p);
+                        }
+                    }
+                    while (tempStack.Count > 0)
+                    {
+                        panelStack.Push(tempStack.Pop());
+                    }
+                }
+            }
+
+            // 真销毁（关键！）
+            panel.InternalDestroy();                        // 面板还资源
+            GameObject.Destroy(panel.gameObject);           // 销毁实例
+            panelDict.Remove(panelName);                    // 移出缓存
+            GameManager.AssetLoader.ReleasePrefab(panelName); // 还 Prefab 本身
+
+            Logger.Log(ModuleName, $"Closed and destroyed panel: {panelName}");
         }
 
         private void ShowPanelInstance(BasePanel panel)
         {
             panel.gameObject.SetActive(true);
-            panel.Show();
+            panel.InternalShow();
         }
 
         private void HidePanelInstance(BasePanel panel, Action hideFinishCallBack = null)
         {
-            panel.Hide(() =>
+            panel.InternalHide(() =>
             {
                 panel.gameObject.SetActive(false);
                 hideFinishCallBack?.Invoke();
